@@ -6,7 +6,6 @@ on:
 
 jobs:
   unit-test:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -39,6 +38,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    needs: unit-test
     steps:
       - uses: actions/checkout@v3
         with:
