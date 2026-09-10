@@ -48,7 +48,38 @@ jobs:
         shell: bash
         run: |
           echo "Deploy PRE"
+  
+    deploy-PRO:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy
+        shell: bash
+        run: |
+          echo "Deploy PRO"
 
+  smoke-Prod:
+    runs-on: ubuntu-latest
+    needs: deploy-STG
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Smoketest
+        shell: bash
+        run: |
+          sh 'src/main/scripts/smoketest.sh'
+
+  testePerformance:
+    runs-on: ubuntu-latest
+    needs: testeFuncionais
+    if: github.ref == 'refs/heads/release'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Performance Tests
+        shell: bash
+        run: |
+          echo "teste de Performance"
+        
   SmoketestPre:
     runs-on: ubuntu-latest
     needs: deploy-PRE
@@ -71,13 +102,4 @@ jobs:
         run: |
           sh 'src/main/scripts/testesFuncionais.sh'
 
-  testePerformance:
-    runs-on: ubuntu-latest
-    needs: testeFuncionais
-    if: github.ref == 'refs/heads/release'
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run Performance Tests
-        shell: bash
-        run: |
-          echo "teste de Performance"
+
