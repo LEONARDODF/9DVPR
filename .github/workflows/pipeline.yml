@@ -109,7 +109,6 @@ jobs:
     needs: SmoketestPre
     if: github.ref == 'refs/heads/release'
     steps:
-      - border: none
       - uses: actions/checkout@v3
       - name: Run Functional Tests
         shell: bash
