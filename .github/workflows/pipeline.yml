@@ -71,7 +71,7 @@ jobs:
         run: >-
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
           -Dsonar.qualitygate.wait=true
-          -Dsonar.projectKey=Leoz1n
+          -Dsonar.projectKey=LEONARDODF_9DVPR
 
   build: 
     runs-on: ubuntu-latest
